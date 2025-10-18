@@ -326,24 +326,35 @@ print(data)
 #     printf("Not Found: %d\n", data);
 #     return NULL;
 # }
+# void print_linked_list(Node *head)
+# {
+#     Node *starting = head;
+#     while(starting != NULL)
+#     {
+#         printf("%d\n", starting->data);
+#         starting = starting->next;
+#     }
+# }
 # int main()
 # {
-#     Node *head, *n1, *n2;
-#     n1 = create_new_node(NULL, 2);
-#     head = n1;
-#     head = prepend(head, 1);
-#     append(head, 3);
-#     append(head, 4);
-#     n2 = search(head, 244);
-#     if(n2 != NULL)
-#     {
-#         printf("Found: %d\n", n2->data);
+    # NOTE: append() always return the head that passed
+    
+    # Node *head, *n1, *n2;
+    # n1 = create_new_node(NULL, 2);
+    # head = n1;
+    # head = prepend(head, 1);
+    # append(head, 3);
+    # append(head, 4);
+    # n2 = search(head, 244);
+    # if(n2 != NULL)
+    # {
+    #     printf("Found: %d\n", n2->data);
         
-#     }
-#     printf("%d\n", head->data);
-#     printf("%d\n", head->next->data);
-#     printf("%d\n", head->next->next->data);
-#     printf("%d\n", head->next->next->next->data);
-#     printf("Count: %d\n", count(head));
+    # }
+    # printf("%d\n", head->data);
+    # printf("%d\n", head->next->data);
+    # printf("%d\n", head->next->next->data);
+    # printf("%d\n", head->next->next->next->data);
+    # printf("Count: %d\n", count(head));
 #     return 0;
 # }

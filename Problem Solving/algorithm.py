@@ -216,3 +216,134 @@ print(data)
 #     }
 #     return -1;
 # }
+# ===========================Queue Implementaion============================
+# Queue Implementaion
+#include <stdio.h>
+#define SIZE 3
+# typedef struct
+# {
+#     int data[SIZE + 1];
+#     int head, tail;
+# } Queue;
+# int enqueue(Queue *q, int item)
+# {
+#     if((q->tail + 1) % (SIZE + 1) == q->head)
+#     {
+#         printf("Queue is full!\n");
+#         return -1;
+#     }
+#     q->data[q->tail] = item;
+#     q->tail = (q->tail + 1) % (SIZE + 1);
+#     return 1;
+# }
+# int dequeue(Queue *q)
+# {
+#     int item;
+#     if(q->head == q->tail)
+#     {
+#         printf("Queue is Empty!\n");
+#         return -1;
+#     }
+#     item = q->data[q->head];
+#     q->head = (q->head + 1) % (SIZE + 1);
+#     return item;
+# }
+
+
+# int main()
+# {
+#     Queue q1 = {0};
+#     enqueue(&q1, 2);
+#     enqueue(&q1, 3);
+#     enqueue(&q1, 5);
+#     enqueue(&q1, 7);
+#     printf("Value: 1: %d\n", dequeue(&q1));
+#     printf("Value: 2: %d\n", dequeue(&q1));
+#     printf("Value: 3: %d\n", dequeue(&q1));
+#     printf("Value: 4: %d", dequeue(&q1));
+#     return 0;
+# }
+# Linked list Implementation
+# // Linked list Implementation
+# #include <stdio.h>
+# #include <stdlib.h>
+# typedef struct node Node;
+# struct node
+# {
+#     int data;
+#     Node *next;
+# };
+# Node *create_new_node(Node *head, int item)
+# {
+#     Node *new_node = (Node *) malloc(sizeof(Node));
+#     if(new_node == NULL)
+#     {
+#         printf("Something went wrong!");
+#         exit(1);
+#     }
+#     new_node->data = item;
+#     new_node->next = head;
+#     return new_node;
+# }
+# Node *prepend(Node *head, int item)
+# {
+#     Node *newNode = create_new_node(head, item);
+#     return newNode;
+# }
+# Node *append(Node *head, int item)
+# {
+#     Node *new_node = create_new_node(NULL, item);
+#     if(head == NULL) return new_node;
+#     Node *current_node = head;
+#     while(current_node->next != NULL)
+#     {
+#         current_node = current_node->next;
+#     }
+#     current_node->next = new_node;
+# }
+# int count(Node *head)
+# {
+#     int count = 0;
+#     Node *current_node = head;
+#     while(current_node != NULL)
+#     {
+#         count++;
+#         current_node = current_node->next;
+#     }
+#     return count;
+# }
+# Node *search(Node *head, int data)
+# {
+#     Node *searching_node = head;
+#     while(searching_node != NULL)
+#     {
+#         if(searching_node->data == data)
+#         {
+#             return searching_node;
+#         }
+#         searching_node = searching_node->next;
+#     }
+#     printf("Not Found: %d\n", data);
+#     return NULL;
+# }
+# int main()
+# {
+#     Node *head, *n1, *n2;
+#     n1 = create_new_node(NULL, 2);
+#     head = n1;
+#     head = prepend(head, 1);
+#     append(head, 3);
+#     append(head, 4);
+#     n2 = search(head, 244);
+#     if(n2 != NULL)
+#     {
+#         printf("Found: %d\n", n2->data);
+        
+#     }
+#     printf("%d\n", head->data);
+#     printf("%d\n", head->next->data);
+#     printf("%d\n", head->next->next->data);
+#     printf("%d\n", head->next->next->next->data);
+#     printf("Count: %d\n", count(head));
+#     return 0;
+# }

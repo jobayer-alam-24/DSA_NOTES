@@ -263,98 +263,121 @@ print(data)
 #     printf("Value: 4: %d", dequeue(&q1));
 #     return 0;
 # }
-# Linked list Implementation
-# // Linked list Implementation
-# #include <stdio.h>
-# #include <stdlib.h>
+# ============================== Singly Linked list Implementation ==============================
+# // Singly Linked List Implementation
+#include <stdio.h>
+#include <stdlib.h>
 # typedef struct node Node;
 # struct node
 # {
-#     int data;
-#     Node *next;
+#   int data;
+#   Node *next;
 # };
-# Node *create_new_node(Node *head, int item)
+# Node *create_node(Node *head, int data)
 # {
-#     Node *new_node = (Node *) malloc(sizeof(Node));
-#     if(new_node == NULL)
+#     Node *newNode = (Node *) malloc(sizeof(Node));
+#     if(newNode == NULL)
 #     {
-#         printf("Something went wrong!");
+#         printf("Something is wrong!");
 #         exit(1);
 #     }
-#     new_node->data = item;
-#     new_node->next = head;
-#     return new_node;
-# }
-# Node *prepend(Node *head, int item)
-# {
-#     Node *newNode = create_new_node(head, item);
+#     newNode->data = data;
+#     newNode->next = head;
 #     return newNode;
 # }
-# Node *append(Node *head, int item)
+# Node *prepend(Node *head, int data)
 # {
-#     Node *new_node = create_new_node(NULL, item);
-#     if(head == NULL) return new_node;
+#     Node *newNode = create_node(head, data);
+#     return newNode;
+# }
+# Node *append(Node *head, int data)
+# {
+#     Node *newNode = create_node(NULL, data);
 #     Node *current_node = head;
+#     if(head == NULL) return newNode;
 #     while(current_node->next != NULL)
 #     {
 #         current_node = current_node->next;
 #     }
-#     current_node->next = new_node;
+#     current_node->next = newNode;
+#     return head;
+# }
+# Node *remove_node(Node *head, Node *node)
+# {
+#     if(head == node)
+#     {
+#         head = node->next;
+#         free(node);
+#         return head;
+#     }
+#     Node *current_node = head;
+#     while(current_node != NULL)
+#     {
+#         if(current_node->next == node)
+#         {
+#             current_node->next = node->next;
+#             free(node);
+#             return head;
+#         }
+#         current_node = current_node->next;
+#     }
+#     return head;
 # }
 # int count(Node *head)
 # {
-#     int count = 0;
 #     Node *current_node = head;
+#     int count = 0;
 #     while(current_node != NULL)
 #     {
 #         count++;
 #         current_node = current_node->next;
 #     }
-#     return count;
+#     if(count > 0) return count;
+#     return -1;
+# }
+# void insert(Node* node, int data)
+# {
+#     Node *new_node = create_node(node->next, data);
+#     node->next = new_node;
 # }
 # Node *search(Node *head, int data)
 # {
-#     Node *searching_node = head;
-#     while(searching_node != NULL)
+#     Node *current_node = head;
+#     while(current_node != NULL)
 #     {
-#         if(searching_node->data == data)
+#         if(current_node->data == data)
 #         {
-#             return searching_node;
+#             return current_node;
 #         }
-#         searching_node = searching_node->next;
+#         current_node = current_node->next;
 #     }
-#     printf("Not Found: %d\n", data);
 #     return NULL;
 # }
 # void print_linked_list(Node *head)
 # {
-#     Node *starting = head;
-#     while(starting != NULL)
+#     Node *current_node = head;
+#     while(current_node != NULL)
 #     {
-#         printf("%d\n", starting->data);
-#         starting = starting->next;
+#         printf("%d\n", current_node->data);
+#         current_node = current_node->next;
 #     }
 # }
 # int main()
 # {
-    # NOTE: append() always return the head that passed
-    
-    # Node *head, *n1, *n2;
-    # n1 = create_new_node(NULL, 2);
-    # head = n1;
-    # head = prepend(head, 1);
-    # append(head, 3);
-    # append(head, 4);
-    # n2 = search(head, 244);
-    # if(n2 != NULL)
-    # {
-    #     printf("Found: %d\n", n2->data);
-        
-    # }
-    # printf("%d\n", head->data);
-    # printf("%d\n", head->next->data);
-    # printf("%d\n", head->next->next->data);
-    # printf("%d\n", head->next->next->next->data);
-    # printf("Count: %d\n", count(head));
+# NOTE: append() always return the head that passed
+# NOTE: headNode->next = newNode
+
+#     Node *head, *n1;
+#     head = create_node(NULL, 2);
+#     head = prepend(head, 1);
+#     head = append(head, 4);
+#     n1 = search(head, 2);
+#     insert(n1, 3);
+#     head = remove_node(head, n1);
+#     head = append(head, 5);
+#     head = append(head, 6);
+#     print_linked_list(head);
+#     if(count(head) > 0) printf("Count: %d\n", count(head));
 #     return 0;
 # }
+
